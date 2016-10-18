@@ -1,11 +1,11 @@
 {
-  "name": "tslint-windows-path-bug",
+  "name": "tslint-quoted-unquoted-path-inconsistency",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "works": "tslint src/**/*.ts",
-	"doesntwork": "tslint 'src/**/*.ts'"
+    "unquoted": "tslint src/**/*.ts",
+	"quoted": "tslint 'src/**/*.ts'"
   },
   "author": "",
   "license": "ISC",

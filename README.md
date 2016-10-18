@@ -1,14 +1,69 @@
-# tslint-windows-path-bug
+# tslint-quoted-unquoted-path-inconsistency
 
-Run
+Quoting paths or not has some weird effects when using `tslint` as script.
 
+# Reproducing...
+
+NPM install before anything:
 ```bash
 # install deps
 npm install
+```
 
-# no quotes works (lint error is shown)
-npm run works
+## Unquoted path (`npm run unquoted`)
 
-# with quotes doesn't work on windows: no lint error is shown
-npm run doesntwork
+- @windows 10
+	```bash
+	$ npm run unquoted
+
+	> tslint-windows-path-bug@1.0.0 unquoted D:\github\tslint-windows-path-bug
+	> tslint src/**/*.ts
+
+	src/FirstLevel.ts[1, 12]: " should be '
+	src/second/SecondLevel.ts[1, 12]: " should be '
+	src/second/third/ThirdLevel.ts[1, 12]: " should be '
+
+	npm ERR! Windows_NT 10.0.14393
+	...
+	```
+
+- @centos 7
+	```bash
+	[box@box tslint-windows-path-bug]$ npm run unquoted
+
+	> tslint-windows-path-bug@1.0.0 unquoted /box/github/tslint-windows-path-bug
+	> tslint src/**/*.ts
+
+	src/second/SecondLevel.ts[1, 12]: " should be '
+
+	npm ERR! Linux 3.10.0-229.el7.x86_64
+	...
+	```
+
+## Quoted path  (`npm run quoted`)
+
+- @windows 10
+	- **No error whatsoever...**
+	```bash
+	$ npm run quoted
+
+	> tslint-windows-path-bug@1.0.0 quoted D:\github\tslint-windows-path-bug
+	> tslint 'src/**/*.ts'
+
+	$
+	```
+
+- @centos 7
+	```bash
+	[box@box tslint-windows-path-bug]$ npm run quoted
+
+	> tslint-windows-path-bug@1.0.0 quoted /box/github/tslint-windows-path-bug
+	> tslint 'src/**/*.ts'
+
+	src/FirstLevel.ts[1, 12]: " should be '
+	src/second/SecondLevel.ts[1, 12]: " should be '
+	src/second/third/ThirdLevel.ts[1, 12]: " should be '
+
+	npm ERR! Linux 3.10.0-229.el7.x86_64
+	...
 ```
