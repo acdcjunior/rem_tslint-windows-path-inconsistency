@@ -30,7 +30,7 @@ npm install
 	```
 
 - @centos 7
-	- Only one error when three are expected!
+	- **Only one error when three are expected!**
 	
 	```bash
 	[box@box tslint-windows-path-bug]$ npm run unquoted
@@ -47,7 +47,7 @@ npm install
 ## Quoted path  (`npm run quoted`)
 
 - @windows 10
-	- Bad: no error whatsoever!
+	- **Bad: no error whatsoever!**
 	
 	```bash
 	$ npm run quoted
